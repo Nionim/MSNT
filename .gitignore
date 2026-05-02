@@ -21,3 +21,8 @@ target/
 #   >> Contain
 !.gitattributes
 gradle/wrapper/gradle-wrapper.jar
+
+# Server
+plugins/
+logs/
+crash_logs/

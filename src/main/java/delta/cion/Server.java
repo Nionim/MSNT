@@ -7,7 +7,6 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.ComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.adventure.provider.MinestomPlainTextComponentSerializerProvider;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
@@ -37,7 +36,6 @@ public class Server {
 	private static final int DEFAULT_PORT = 25565;
 
 	public static void main(String[] args) {
-
 		instanceContainer.setGenerator(unit -> {
 			Point worldStart = unit.absoluteStart();
 
