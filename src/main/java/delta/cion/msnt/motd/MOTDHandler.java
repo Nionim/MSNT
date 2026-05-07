@@ -1,5 +1,6 @@
 package delta.cion.msnt.motd;
 
+import delta.cion.msnt.init.ServerBranding;
 import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.ping.ResponseData;
 import delta.cion.msnt.event.DeltaEvent;
@@ -15,8 +16,8 @@ public class MOTDHandler {
 
 	private static final Consumer<ServerListPingEvent> DEFAULT_HANDLER = event -> {
 		ResponseData data = new ServerMOTD()
-			.setMOTDVersion("MSNT server 1.21.4")
-			.setMOTDDescription("MSNT Server")
+			.setMOTDVersion(ServerBranding.getBrandName() + " 1.21.4")
+			.setMOTDDescription(ServerBranding.getBrandName() + " Server")
 			.setMOTDMaxPlayer(1663)
 			.setMOTDOnline(-1)
 			.get();
