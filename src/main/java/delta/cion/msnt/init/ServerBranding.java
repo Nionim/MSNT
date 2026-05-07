@@ -1,0 +1,24 @@
+package delta.cion.msnt.init;
+
+import delta.cion.msnt.motd.MOTDHandler;
+import net.minestom.server.MinecraftServer;
+
+public class ServerBranding {
+
+	private static final String BRAND_NAME = "MSNT";
+	private static final String MAIN_MOTD = "MSNT server";
+
+	public static String getBrandName() {
+		return BRAND_NAME;
+	}
+
+	public static String getMainMotd() {
+		return MAIN_MOTD;
+	}
+
+	public static void setServerBranding() {
+		MinecraftServer.setBrandName(BRAND_NAME);
+		MOTDHandler.registerVanillaMOTD();
+	}
+
+}

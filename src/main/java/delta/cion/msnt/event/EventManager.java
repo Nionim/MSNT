@@ -37,6 +37,12 @@ public final class EventManager {
 		}
 	}
 
+	public static <T extends Event> EventListener<T> registerTempEvent (Class<T> eventClass, Consumer<T> handler) {
+		EventListener<T> listener = EventListener.builder(eventClass).handler(handler).build();
+		globalEventHandler.addListener(listener);
+		return listener;
+	}
+
 	@SuppressWarnings("unchecked")
 	private static void registerListener(EventRegistration<? extends Event> registration) {
 		EventListener<Event> listener;
