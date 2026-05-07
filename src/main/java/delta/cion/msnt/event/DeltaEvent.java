@@ -9,18 +9,19 @@ import net.minestom.server.event.EventNode;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public abstract class DeltaEvent<T extends Event> implements AutoCloseable {
-	private UUID EVENT_UUID = null;
-	private Class<T> MINECRAFT_EVENT = null;
+public class DeltaEvent<T extends Event> implements AutoCloseable {
+	private final UUID EVENT_UUID;
+	private final Class<T> MINECRAFT_EVENT;
 
-	EventNode<Event> MY_NODE;
+	private final EventNode<Event> MY_NODE;
+	private final EventListener<Event> EVENT_LISTENER;
 
 	public DeltaEvent(Class<T> event, Consumer<T> handler) {
-		 this.EVENT_UUID = UUID.randomUUID();
-		 this.MINECRAFT_EVENT = event;
-		 this.MY_NODE = EventNode.all(EVENT_UUID.toString());
-		EventListener<Event> listener = buildEvent(new SimpleEventRegistration<>(MINECRAFT_EVENT, EVENT_UUID.toString(), handler));
-		 this.MY_NODE.addListener(listener);
+		this.EVENT_UUID = UUID.randomUUID();
+		this.MINECRAFT_EVENT = event;
+		this.MY_NODE = EventNode.all(EVENT_UUID.toString());
+		this.EVENT_LISTENER = buildEvent(new SimpleEventRegistration<>(MINECRAFT_EVENT, EVENT_UUID.toString(), handler));
+		this.MY_NODE.addListener(EVENT_LISTENER);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -47,6 +48,10 @@ public abstract class DeltaEvent<T extends Event> implements AutoCloseable {
 
 	public Class<T> getMinecraftEvent() {
 		return this.MINECRAFT_EVENT;
+	}
+
+	public EventListener<Event> getEventListener() {
+		return this.EVENT_LISTENER;
 	}
 
 	@Override

@@ -1,37 +1,44 @@
 package delta.cion.msnt.motd;
 
-import delta.cion.msnt.event.EventManager;
-import net.minestom.server.MinecraftServer;
-import net.minestom.server.event.EventListener;
-import net.minestom.server.event.EventNode;
-import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.ping.ResponseData;
+import delta.cion.msnt.event.DeltaEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
+import java.util.function.Consumer;
 
 public class MOTDHandler {
 
-	private static EventListener<ServerListPingEvent> MOTD_LISTENER;
+	private static final Logger LOGGER = LoggerFactory.getLogger(MOTDHandler.class);
+
+	private static final Consumer<ServerListPingEvent> DEFAULT_HANDLER = event -> {
+		ResponseData data = new ServerMOTD()
+			.setMOTDVersion("MSNT server 1.21.4")
+			.setMOTDDescription("MSNT Server")
+			.setMOTDMaxPlayer(1663)
+			.setMOTDOnline(-1)
+			.get();
+		event.setResponseData(data);
+
+		LOGGER.debug("Server pinged by {}",
+			Objects.requireNonNull(event.getConnection()).getRemoteAddress());
+	};
+
+	private static DeltaEvent<ServerListPingEvent> serverListPingEvent;
+
+	public static void registerCustomMOTD(Consumer<ServerListPingEvent> handler) {
+		if (serverListPingEvent != null) serverListPingEvent.unregister();
+		if (handler == null) {
+
+			registerVanillaMOTD();
+		}
+		serverListPingEvent = new DeltaEvent<>(ServerListPingEvent.class, handler);
+		serverListPingEvent.register();
+	}
 
 	public static void registerVanillaMOTD() {
-		setupVanillaMOTD();
+		registerCustomMOTD(DEFAULT_HANDLER);
 	}
-
-	public static void unregisterVanillaMOTD() {
-		GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-		EventNode<?> MOTD_NODE =
-		globalEventHandler.unregister(MOTD_LISTENER);
-		MOTD_LISTENER
-	}
-
-	private static void setupVanillaMOTD() {
-		MOTD_LISTENER = EventManager.registerTempEvent(ServerListPingEvent.class, event -> {
-			ResponseData responseData = new ResponseData();
-			responseData.setMaxPlayer(1663);
-			responseData.setVersion("MSNT server 1.21.4");
-			responseData.setOnline(-1);
-			responseData.setDescription("MSNT Server");
-			event.setResponseData(responseData);
-		});
-	}
-
 }

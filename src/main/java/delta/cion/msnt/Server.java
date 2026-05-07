@@ -2,6 +2,7 @@ package delta.cion.msnt;
 
 import delta.cion.msnt.config.property.ConfigBuilder;
 import delta.cion.msnt.event.EventManager;
+import delta.cion.msnt.motd.MOTDHandler;
 import delta.cion.msnt.plugin.PluginManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -13,11 +14,9 @@ import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
-import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.ping.ResponseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +67,7 @@ public class Server {
 		minecraftServer.start(address, port);
 		LOGGER.info("Server started on {}:{}.", address, port);
 		LOGGER.info("Server version: {}", MinecraftServer.VERSION_NAME);
+		MOTDHandler.registerVanillaMOTD();
 	}
 
 	public static GlobalEventHandler getGlobalEventHandler() {

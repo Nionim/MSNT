@@ -9,10 +9,11 @@ public final class LogbackColoredConfig extends ForegroundCompositeConverterBase
 	@Override
 	protected String getForegroundColorCode(ILoggingEvent event) {
 		return switch (event.getLevel().toInt()) {
-			case Level.INFO_INT -> ANSIConstants.GREEN_FG;
-			case Level.TRACE_INT, Level.DEBUG_INT -> "90";
-			case Level.WARN_INT -> ANSIConstants.YELLOW_FG;
-			case Level.ERROR_INT -> ANSIConstants.RED_FG;
+			case Level.DEBUG_INT 	-> ANSIConstants.MAGENTA_FG;
+			case Level.INFO_INT 	-> ANSIConstants.GREEN_FG;
+			case Level.TRACE_INT 	-> "90";
+			case Level.WARN_INT 	-> ANSIConstants.YELLOW_FG;
+			case Level.ERROR_INT 	-> ANSIConstants.RED_FG;
 			default -> ANSIConstants.DEFAULT_FG;
 		};
 	}
