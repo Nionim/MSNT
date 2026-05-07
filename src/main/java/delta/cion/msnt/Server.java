@@ -6,22 +6,26 @@ import delta.cion.msnt.motd.MOTDHandler;
 import delta.cion.msnt.plugin.PluginManager;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Server {
 
-	private static final MinecraftServer minecraftServer = MinecraftServer.init();
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
-
-	private static final GlobalEventHandler GLOBAL_EVENT_HANDLER = MinecraftServer.getGlobalEventHandler();
-
 	private static final String DEFAULT_ADDRESS = "0.0.0.0";
 	private static final int DEFAULT_PORT = 25565;
 
-	public static void main(String[] args) {
+	private static final MinecraftServer SERVER = MinecraftServer.init();
+	private static final GlobalEventHandler GLOBAL_EVENT_HANDLER = MinecraftServer.getGlobalEventHandler();
+
+	private final Logger LOGGER = LoggerFactory.getLogger(Server.class);
+
+	private Server() {}
+
+	private void start() {
 		initConfigs();
+
+		MOTDHandler.registerVanillaMOTD();
 		PlayerJoinEvent.register();
 
 		PluginManager.init();
@@ -30,13 +34,16 @@ public class Server {
 		String address = DEFAULT_ADDRESS;
 		int port = DEFAULT_PORT;
 
-		minecraftServer.start(address, port);
+		SERVER.start(address, port);
 		LOGGER.info("Server started on {}:{}.", address, port);
 		LOGGER.info("Server version: {}", MinecraftServer.VERSION_NAME);
-		MOTDHandler.registerVanillaMOTD();
 	}
 
-	private static void initConfigs() {
+	public static void main(String[] args) {
+		new Server().start();
+	}
+
+	private void initConfigs() {
 		try {
 			PropertiesInit.buildConfig();
 		} catch (Exception exception) {
