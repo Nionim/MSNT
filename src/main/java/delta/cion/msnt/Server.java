@@ -6,7 +6,6 @@ import delta.cion.msnt.motd.MOTDHandler;
 import delta.cion.msnt.plugin.PluginManager;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.GlobalEventHandler;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
