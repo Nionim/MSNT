@@ -5,6 +5,9 @@ plugins {
 }
 
 val minestomVersion: String by project
+val logbackVersion: String by project
+val jlineVersion: String by project
+val jsonVersion: String by project
 
 java {
     toolchain {
@@ -18,8 +21,9 @@ repositories {
 
 dependencies {
     implementation("net.minestom:minestom-snapshots:$minestomVersion")
-	implementation("ch.qos.logback:logback-classic:1.5.18")
-	implementation("org.jline:jline:3.30.0")
+	implementation("ch.qos.logback:logback-classic:$logbackVersion")
+	implementation("org.jline:jline:$jlineVersion")
+	implementation("org.json:json:$jsonVersion")
 }
 
 tasks {
