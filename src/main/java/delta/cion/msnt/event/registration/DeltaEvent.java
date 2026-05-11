@@ -1,7 +1,6 @@
-package delta.cion.msnt.event;
+package delta.cion.msnt.event.registration;
 
 import delta.cion.msnt.Server;
-import delta.cion.msnt.event.registration.EventRegistration;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.EventNode;

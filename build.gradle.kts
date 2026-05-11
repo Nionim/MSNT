@@ -37,6 +37,10 @@ tasks {
         dependsOn(shadowJar)
     }
 
+	withType<JavaCompile> {
+		options.encoding = "UTF-8"
+	}
+
     shadowJar {
         mergeServiceFiles()
         archiveClassifier.set("")
