@@ -29,7 +29,7 @@ dependencies {
 tasks {
     jar {
         manifest {
-            attributes["Main-Class"] = "delta.cion.msnt.Server"
+            attributes["Main-Class"] = "delta.cion.cherry.CherryServer"
         }
     }
 

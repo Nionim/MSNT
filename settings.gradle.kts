@@ -1,2 +1,2 @@
-rootProject.name = "MSNT"
+rootProject.name = "Cherry"
 
