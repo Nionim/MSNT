@@ -1,4 +1,4 @@
-package delta.cion.cherry.server.event.events;
+package delta.cion.cherry.test_plugin.events;
 
 import delta.cion.cherry.api.registration.DeltaEvent;
 import net.kyori.adventure.text.Component;

@@ -1,6 +1,7 @@
 package delta.cion.cherry.test_plugin;
 
 import delta.cion.cherry.api.Plugin;
+import delta.cion.cherry.test_plugin.events.PlayerJoinEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,7 @@ public class Main extends Plugin {
 
 	@Override
 	public void onEnable() {
+		PlayerJoinEvent.register();
 		sendLog();
 		LOGGER.info("Enabled");
 	}
