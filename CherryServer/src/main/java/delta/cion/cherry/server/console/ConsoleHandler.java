@@ -46,7 +46,7 @@ public class ConsoleHandler {
 
 	private void run() {
 		while (true) {
-			String line = READER.readLine();
+			String line = READER.readLine("");
 			if (line.isEmpty()) continue;
 			LOGGER.info("Console typed: {}", line);
 			MinecraftServer.getCommandManager().execute(CONSOLE_SENDER, line.trim());
