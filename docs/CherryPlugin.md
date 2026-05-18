@@ -37,7 +37,7 @@ public class Main extends Plugin {
 
 <p align="center">
     <a href="#">
-        <img src="https://img.shields.io/github/last-commit/Nionim/MSNT?display_timestamp=committer&style=flat-square&color=000000"></a>
+        <img src="https://img.shields.io/github/last-commit/CherryServer/CherryServer?display_timestamp=committer&style=flat-square&color=000000"></a>
     <a href="#">
-        <img src="https://img.shields.io/github/created-at/Nionim/MSNT?style=flat-square&color=000000"></a>
+        <img src="https://img.shields.io/github/created-at/CherryServer/CherryServer?style=flat-square&color=000000"></a>
 </p>
