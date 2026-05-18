@@ -8,6 +8,56 @@
 
 ---
 
+```txt
+build.gradle.kts должен содержать в себе:
+	delta.cion.cherry.api:cherry_api:$ApiVersion
+Обычно версия апишки совпадает с версией самого сервера.
+Но это пока что. В дальнейшем всё может измениться.
+Обратная совместимость сохраняется.
+
+```
+---
+
+<h3 align="center">--==[ build.gradle.kts example ]==--</h3>
+
+```kotlin
+plugins {
+	id("java")
+}
+
+val projectVersion: String by project
+
+group = "delta.cion.cherry.test_plugin"
+version = projectVersion
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Take version from github or needed server version
+	compileOnly("delta.cion.cherry.api:cherry_api:v1.0.0-predemo")
+}
+
+tasks {
+	build {
+		dependsOn(shadowJar)
+	}
+
+	withType<JavaCompile> {
+		options.encoding = "UTF-8"
+	}
+
+	shadowJar {
+		mergeServiceFiles()
+		archiveClassifier.set("")
+	}
+}
+
+```
+
+---
+
 <h3 align="center">--==[ Main class example ]==--</h3>
 
 ```java
@@ -31,6 +81,15 @@ public class Main extends Plugin {
 	public void onDisable() {}
 }
 
+```
+
+---
+
+<h3 align="center">--==[ plugin.properties example ]==--</h3>
+
+```properties
+# Just a main class
+main-class = delta.cion.cherry.test_plugin.Main
 ```
 
 ---
