@@ -3,6 +3,12 @@
 
 	<conversionRule conversionWord="highlightex" class="delta.cion.cherry.server.console.LogbackConfig"/>
 
+	<!-- START > Minestom fucking errors < START-->
+	<Logger name="net.minestom.server.network.packet" level="ERROR" additivity="false">
+		<AppenderRef ref="CONSOLE"/>
+	</Logger>
+	<!-- END > Minestom fucking errors < END-->
+
 	<logger name="delta.cion" level="DEBUG"/>
 	<logger name="org" level="WARN"/>
 	<logger name="ch.qos.logback" level="WARN"/>
