@@ -44,7 +44,8 @@ public class CherryServer {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(CherryServer.class);
 
-	private CherryServer() {}
+	private CherryServer() {
+	}
 
 	private void start() {
 		initConfigs();
@@ -99,15 +100,21 @@ public class CherryServer {
 	}
 
 	public static void stopServer() {
-		kickAll();
-		PluginManager.disableAll();
-		MinecraftServer.stopCleanly();
-		System.exit(0);
+		if (kickAll()) {
+			PluginManager.disableAll();
+			MinecraftServer.stopCleanly();
+			System.exit(0);
+		}
 	}
 
-	private static void kickAll() {
+	private static boolean kickAll() {
 		MinecraftServer.getConnectionManager().getOnlinePlayers()
 			.forEach(player -> player.kick("Server shutdown.\n"+printDate()));
+
+		while(true) {
+			if (MinecraftServer.getConnectionManager().getOnlinePlayers().isEmpty()) return true;
+			else try { Thread.sleep(1000);} catch (InterruptedException ignored) {};
+		}
 	}
 
 	private static String printDate() {
