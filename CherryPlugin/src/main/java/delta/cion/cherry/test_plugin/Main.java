@@ -19,7 +19,7 @@ import net.minestom.server.event.player.PlayerMoveEvent;
 public class Main extends Plugin {
 
 	private static final Pos SPAWN_POSITION = new Pos(0.5, 50.0, 0.5);
-	private static final Pos MOB_POSITION = new Pos(3.5, 50.0, 0.5);
+	private static final Pos MOB_POSITION = new Pos(0.5, 50.0, 3.5);
 
 	private static DeltaEvent<PlayerMoveEvent> WORLD_BORDER;
 

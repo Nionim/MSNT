@@ -99,17 +99,15 @@ public class CherryServer {
 	}
 
 	public static void stopServer() {
-		if (kickAll()) {
-			PluginManager.disableAll();
-			MinecraftServer.stopCleanly();
-			System.exit(0);
-		}
+		kickAll();
+		PluginManager.disableAll();
+		MinecraftServer.stopCleanly();
+		System.exit(0);
 	}
 
-	private static boolean kickAll() {
+	private static void kickAll() {
 		MinecraftServer.getConnectionManager().getOnlinePlayers()
 			.forEach(player -> player.kick("Server shutdown.\n"+printDate()));
-		return true;
 	}
 
 	private static String printDate() {

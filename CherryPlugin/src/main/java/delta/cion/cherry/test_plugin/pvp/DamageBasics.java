@@ -75,6 +75,7 @@ public class DamageBasics {
 
 	private static void registerOther() {
 		DAMAGE_BASICS.put(Material.TRIDENT, 9F);
+		DAMAGE_BASICS.put(Material.MACE, 6F);
 	}
 
 }
