@@ -3,6 +3,7 @@ package delta.cion.cherry.test_plugin;
 import delta.cion.cherry.api.Plugin;
 import delta.cion.cherry.api.command.DeltaCommand;
 import delta.cion.cherry.api.event.DeltaEvent;
+import delta.cion.cherry.test_plugin.command.GetCommand;
 import delta.cion.cherry.test_plugin.command.TestUnit;
 import delta.cion.cherry.test_plugin.event.PlayerBorderEvent;
 import delta.cion.cherry.test_plugin.event.PlayerConnectionEvent;
@@ -29,6 +30,7 @@ public class Main extends Plugin {
 	private static DeltaEvent<EntityAttackEvent> ENTITY_ATTACK_EVENT;
 
 	private static final DeltaCommand TEST_UNIT_SPAWN_COMMAND = new TestUnit();
+	private static final DeltaCommand GET_COMMAND = new GetCommand();
 
 	public Main() {
 		super("Cherry-Test-Plugin");
@@ -52,6 +54,7 @@ public class Main extends Plugin {
 		ENTITY_ATTACK_EVENT.register();
 
 		TEST_UNIT_SPAWN_COMMAND.register();
+		GET_COMMAND.register();
 	}
 
 	@Override
@@ -64,6 +67,7 @@ public class Main extends Plugin {
 		ENTITY_ATTACK_EVENT.unregister();
 		// Commands
 		TEST_UNIT_SPAWN_COMMAND.unregister();
+		GET_COMMAND.unregister();
 	}
 
 	public static Pos getSpawnPosition() {
