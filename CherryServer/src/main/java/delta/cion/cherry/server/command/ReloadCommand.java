@@ -11,7 +11,7 @@ import net.minestom.server.command.builder.CommandContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ReloadCommand extends DeltaCommand<Command> {
+public class ReloadCommand extends DeltaCommand {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReloadCommand.class);
 

@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
-public class DeltaCommand<T extends Command> implements AutoCloseable {
+public class DeltaCommand implements AutoCloseable {
 
-	private final T commandInstance;
+	private final Command commandInstance;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DeltaCommand.class);
 
-	public DeltaCommand(Class<T> commandClass, Consumer<T> configurator) {
+	public DeltaCommand(Class<Command> commandClass, Consumer<Command> configurator) {
 		try {
 			this.commandInstance = commandClass.getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
@@ -22,7 +22,7 @@ public class DeltaCommand<T extends Command> implements AutoCloseable {
 		}
 		configurator.accept(this.commandInstance);
 	}
-	public DeltaCommand(T commandInstance) {
+	public DeltaCommand(Command commandInstance) {
 		this.commandInstance = commandInstance;
 	}
 
@@ -34,7 +34,7 @@ public class DeltaCommand<T extends Command> implements AutoCloseable {
 		MinecraftServer.getCommandManager().unregister(commandInstance);
 	}
 
-	public T getCommand() {
+	public Command getCommand() {
 		return commandInstance;
 	}
 

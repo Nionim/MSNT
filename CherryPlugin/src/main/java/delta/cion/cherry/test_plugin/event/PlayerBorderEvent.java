@@ -1,6 +1,6 @@
-package delta.cion.cherry.test_plugin.events;
+package delta.cion.cherry.test_plugin.event;
 
-import delta.cion.cherry.api.registration.DeltaEvent;
+import delta.cion.cherry.api.event.DeltaEvent;
 import delta.cion.cherry.test_plugin.Main;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.player.PlayerMoveEvent;

@@ -1,15 +1,14 @@
-package delta.cion.cherry.test_plugin.events;
+package delta.cion.cherry.test_plugin.event;
 
 import delta.cion.cherry.api.online.WhiteList;
-import delta.cion.cherry.api.registration.DeltaEvent;
+import delta.cion.cherry.api.event.DeltaEvent;
 import delta.cion.cherry.test_plugin.Main;
+import delta.cion.cherry.test_plugin.world.BaseWorld;
 import delta.cion.cherry.test_plugin.world.WorldGenerator;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerDisconnectEvent;
-import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 import org.slf4j.Logger;
@@ -17,14 +16,15 @@ import org.slf4j.LoggerFactory;
 
 public class PlayerConnectionEvent {
 
-	private static final InstanceManager instanceManager = MinecraftServer.getInstanceManager();
-	private static final InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
+	private static BaseWorld baseWorld;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerConnectionEvent.class);
 
 	public static void init() {
-		instanceContainer.setGenerator(new WorldGenerator());
-		instanceContainer.setChunkSupplier(LightingChunk::new);
+		InstanceManager instanceManager = MinecraftServer.getInstanceManager();
+		baseWorld = new BaseWorld("base_world", instanceManager.createInstanceContainer());
+		baseWorld.setWorldGenerator(new WorldGenerator());
+		baseWorld.setWorldSupplier(LightingChunk::new);
 	}
 
 	public static DeltaEvent<AsyncPlayerConfigurationEvent> connectPlayer() {
@@ -39,7 +39,7 @@ public class PlayerConnectionEvent {
 				player.kick("Sorry, "+playerName+", but you cannot connect to this server.");
 			}
 
-			event.setSpawningInstance(instanceContainer);
+			event.setSpawningInstance(baseWorld.getWorldContainer());
 			player.setRespawnPoint(Main.getSpawnPosition());
 			LOGGER.info("Player {} [{}] connected", playerName, player.getUuid());
 		});

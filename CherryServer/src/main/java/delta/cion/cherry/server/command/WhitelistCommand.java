@@ -17,7 +17,7 @@ import java.io.*;
 import java.util.Properties;
 import java.util.UUID;
 
-public class WhitelistCommand extends DeltaCommand<Command> {
+public class WhitelistCommand extends DeltaCommand {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WhitelistCommand.class);
 

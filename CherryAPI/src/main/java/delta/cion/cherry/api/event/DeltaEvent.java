@@ -1,4 +1,4 @@
-package delta.cion.cherry.api.registration;
+package delta.cion.cherry.api.event;
 
 import delta.cion.cherry.api.Plugin;
 import net.minestom.server.event.Event;
