@@ -30,7 +30,7 @@ public class GetCommand extends DeltaCommand {
 	public GetCommand() {
 		super(new Command("get"));
 
-		ArgumentWord itemArg = ArgumentType.Word("item");
+		ArgumentString  itemArg = ArgumentType.String("item");
 
 		itemArg.setSuggestionCallback((sender, context, suggestion) -> {
 			Material.values().forEach(material ->

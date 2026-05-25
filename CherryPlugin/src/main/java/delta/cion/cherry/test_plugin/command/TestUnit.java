@@ -8,12 +8,14 @@ import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentString;
 import net.minestom.server.command.builder.arguments.ArgumentType;
+import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.item.Material;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,11 @@ public class TestUnit extends DeltaCommand {
 
 		ArgumentString mobArg = ArgumentType.String("unit");
 		getCommand().addSyntax(this::spawnMob, mobArg);
+
+		mobArg.setSuggestionCallback((sender, context, suggestion) -> {
+			EntityType.values().forEach(entityType ->
+				suggestion.addEntry(new SuggestionEntry(entityType.name().toLowerCase())));
+		});
 
 		Command removeCommand = new Command("remove");
 		removeCommand.addSyntax(this::killMob);
@@ -50,7 +57,7 @@ public class TestUnit extends DeltaCommand {
 			sender.sendMessage("Try to check unit id in minecraft wiki or Minestom docs.");
 			return;
 		}
-
+		if (TEST_UNIT != null) TEST_UNIT.remove();
 		TEST_UNIT = new LivingEntity(unitType);
 
 		TEST_UNIT.setInstance(world, Main.getMobPosition());
