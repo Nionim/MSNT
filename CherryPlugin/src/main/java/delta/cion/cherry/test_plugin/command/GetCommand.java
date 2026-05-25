@@ -29,7 +29,8 @@ public class GetCommand extends DeltaCommand {
 		super(new Command("get"));
 
 		ArgumentString itemArg = ArgumentType.String("item");
-		ArgumentIntRange itemCount = ArgumentType.IntRange("item_count");
+		ArgumentInteger itemCount = ArgumentType.Integer("item_count");
+		itemCount.setDefaultValue(1);
 		getCommand().addSyntax(this::getItem, itemArg, itemCount);
 
 		Command removeCommand = new Command("remove");
