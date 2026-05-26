@@ -17,6 +17,10 @@ server-ip = 0.0.0.0
 server-port = 25565
 online-mode = false
 
+# Server locale
+# ./locales/default.properties
+server-locale = default
+
 # Debug messages etc
 debug-mode = false
 

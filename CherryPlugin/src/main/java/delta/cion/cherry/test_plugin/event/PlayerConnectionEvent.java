@@ -1,5 +1,6 @@
 package delta.cion.cherry.test_plugin.event;
 
+import delta.cion.cherry.api.locales.Localize;
 import delta.cion.cherry.api.online.WhiteList;
 import delta.cion.cherry.api.event.DeltaEvent;
 import delta.cion.cherry.test_plugin.Main;
@@ -13,6 +14,9 @@ import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.Format;
+import java.util.Formatter;
 
 public class PlayerConnectionEvent {
 
@@ -36,7 +40,7 @@ public class PlayerConnectionEvent {
 				LOGGER.info("Player {} [{}] whitelisted", playerName, player.getUuid());
 			} else if (WhiteList.getStatus() && !isWhitelisted(player)) {
 				LOGGER.info("Player {} [{}] is not whitelisted", playerName, player.getUuid());
-				player.kick("Sorry, "+playerName+", but you cannot connect to this server.");
+				player.kick(Localize.getTranslate("not-whitelisted", playerName));
 				return;
 			}
 

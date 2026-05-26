@@ -1,7 +1,10 @@
 package delta.cion.cherry.server;
 
 import delta.cion.cherry.api.Plugin;
+import delta.cion.cherry.api.locales.Localize;
 import delta.cion.cherry.api.online.WhiteList;
+import delta.cion.cherry.api.permission.PermissionHandler;
+import delta.cion.cherry.api.permission.PermissionManager;
 import delta.cion.cherry.server.command.ReloadCommand;
 import delta.cion.cherry.server.command.StopCommand;
 import delta.cion.cherry.server.command.WhitelistCommand;
@@ -32,10 +35,14 @@ public class CherryServer {
 	private static final String DEFAULT_SERVER_ADDRESS = "0.0.0.0";
 	private static final int DEFAULT_SERVER_PORT = 25565;
 
+	private static final String DEFAULT_SERVER_LOCALE = "default";
+
 	private static boolean openToLan = DEFAULT_OPEN_SERVER_TO_LAN;
 	private static boolean debugStatus = DEFAULT_DEBUG_STATUS;
 	private static String serverAddress = DEFAULT_SERVER_ADDRESS;
 	private static int serverPort = DEFAULT_SERVER_PORT;
+
+	private static String serverLocale = DEFAULT_SERVER_LOCALE;
 
 	private static boolean whitelistStatus = DEFAULT_WHITELIST_STATUS;
 
@@ -50,6 +57,9 @@ public class CherryServer {
 	private void start() {
 		initConfigs();
 		loadConfig();
+
+		Localize.init(serverLocale);
+		PermissionHandler.loadPermissions();
 
 		Plugin.setGlobalEventHandler(GLOBAL_EVENT_HANDLER);
 		WhiteList.setStatus(whitelistStatus);
@@ -109,7 +119,7 @@ public class CherryServer {
 
 	private static boolean kickAll() {
 		MinecraftServer.getConnectionManager().getOnlinePlayers()
-			.forEach(player -> player.kick("Server shutdown.\n"+printDate()));
+			.forEach(player -> player.kick(Localize.getTranslate("server-closed", printDate())));
 
 		while(true) {
 			if (MinecraftServer.getConnectionManager().getOnlinePlayers().isEmpty()) return true;
@@ -131,6 +141,8 @@ public class CherryServer {
 
 		debugStatus = Boolean.parseBoolean(server_properties.getProperty("debug-mode"));
 		openToLan = Boolean.parseBoolean(server_properties.getProperty("open-lan"));
+
+		serverLocale = String.valueOf(server_properties.getProperty("server-locale"));
 
 		whitelistStatus = Boolean.parseBoolean(server_properties.getProperty("enable-whitelist"));
 	}

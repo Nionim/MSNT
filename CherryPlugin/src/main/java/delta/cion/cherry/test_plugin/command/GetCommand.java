@@ -1,6 +1,8 @@
 package delta.cion.cherry.test_plugin.command;
 
 import delta.cion.cherry.api.command.DeltaCommand;
+import delta.cion.cherry.api.locales.Localize;
+import delta.cion.cherry.api.permission.PermissionManager;
 import delta.cion.cherry.api.world.WorldRegistration;
 import delta.cion.cherry.test_plugin.Main;
 import net.minestom.server.command.CommandSender;
@@ -47,6 +49,9 @@ public class GetCommand extends DeltaCommand {
 	}
 
 	private void getItem(CommandSender sender, CommandContext context) {
+		if (sender instanceof Player player && !PermissionManager.hasPermission(player, "get.item")) {
+			sender.sendMessage(Localize.getTranslate("no-permission")); return; }
+
 		if (isConsole(sender)) return;
 		int itemCount = context.get("item_count");
 		String itemName = context.get("item");
@@ -66,6 +71,9 @@ public class GetCommand extends DeltaCommand {
 	}
 
 	private void removeItem(CommandSender sender, CommandContext context) {
+		if (sender instanceof Player player && !PermissionManager.hasPermission(player, "get.remove")) {
+			sender.sendMessage(Localize.getTranslate("no-permission")); return; }
+
 		if (isConsole(sender)) return;
 		((Player) sender).setItemInHand(PlayerHand.MAIN, ItemStack.AIR);
 	}

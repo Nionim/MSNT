@@ -1,6 +1,8 @@
 package delta.cion.cherry.test_plugin.command;
 
 import delta.cion.cherry.api.command.DeltaCommand;
+import delta.cion.cherry.api.locales.Localize;
+import delta.cion.cherry.api.permission.PermissionManager;
 import delta.cion.cherry.api.world.WorldRegistration;
 import delta.cion.cherry.test_plugin.Main;
 import net.minestom.server.command.CommandSender;
@@ -13,6 +15,7 @@ import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.LivingEntity;
+import net.minestom.server.entity.Player;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.Material;
@@ -44,6 +47,9 @@ public class TestUnit extends DeltaCommand {
 	}
 
 	private void spawnMob(CommandSender sender, CommandContext context) {
+		if (sender instanceof Player player && !PermissionManager.hasPermission(player, "spawn.spawn")) {
+			sender.sendMessage(Localize.getTranslate("no-permission")); return; }
+
 		InstanceContainer world = getWorld();
 		assert world != null;
 
@@ -68,6 +74,9 @@ public class TestUnit extends DeltaCommand {
 	}
 
 	private void killMob(CommandSender sender, CommandContext context) {
+		if (sender instanceof Player player && !PermissionManager.hasPermission(player, "spawn.kill")) {
+			sender.sendMessage(Localize.getTranslate("no-permission")); return; }
+
 		InstanceContainer world = getWorld();
 		assert world != null;
 		if (TEST_UNIT == null) return;

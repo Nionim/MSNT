@@ -13,6 +13,8 @@ import java.util.*;
 
 public class WhiteList {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(WhiteList.class);
+
 	private static boolean ENABLE_WHITELIST = false;
 
 	private static final File WHITELIST_FILE = new File("whitelist.json");
@@ -28,8 +30,6 @@ public class WhiteList {
 	}
 
 	private static final ConnectionManager CONNECTION_MANAGER = MinecraftServer.getConnectionManager();
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(WhiteList.class);
 
 	private static void loadWhitelist(ArrayList<PlayerInfo> whitelist) {
 		WHITELIST = whitelist;

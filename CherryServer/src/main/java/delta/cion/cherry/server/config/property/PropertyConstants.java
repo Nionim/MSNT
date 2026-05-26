@@ -17,6 +17,9 @@ public class PropertyConstants {
 		config.put("server-port", "25565");
 		config.put("online-mode", "false");
 
+		// Server locale
+		config.put("server-locale", "default");
+
 		// Debug messages etc
 		config.put("debug-mode", "false");
 
