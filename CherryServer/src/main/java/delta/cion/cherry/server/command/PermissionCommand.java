@@ -25,11 +25,11 @@ public class PermissionCommand extends DeltaCommand {
 		ArgumentString permArg = ArgumentType.String("permission");
 
 		Command addCommand = new Command("add");
-		addCommand.addSyntax(this::addPermission, playerArg);
+		addCommand.addSyntax(this::addPermission, playerArg, permArg);
 		getCommand().addSubcommand(addCommand);
 
 		Command removeCommand = new Command("remove");
-		removeCommand.addSyntax(this::removePermission, playerArg);
+		removeCommand.addSyntax(this::removePermission, playerArg, permArg);
 		getCommand().addSubcommand(removeCommand);
 	}
 
